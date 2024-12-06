@@ -1,0 +1,2 @@
+python -m awq.entry --model_path ../vlm-rlaif/SNUMPR/vlm_rlaif_video_llava_7b --w_bit 4 --q_group_size 128 --run_awq --dump_awq awq_cache/vlm_rlaif_video_llava_7b-w4-g128.pt --parallel
+python -m awq.entry --model_path ../vlm-rlaif/SNUMPR/vlm_rlaif_video_llava_7b --w_bit 4 --q_group_size 128 --load_awq awq_cache/vlm_rlaif_video_llava_7b-w4-g128.pt --q_backend real --dump_quant quant_cache/vlm_rlaif_video_llava_7b-w4-g128-awq.pt

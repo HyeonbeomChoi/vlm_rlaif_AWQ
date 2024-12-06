@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug VideoChat Inference",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/Evaluation/videochatgpt/infer_general.py",
+            "args": [
+                "--model-path", "SNUMPR/vlm_rlaif_video_llava_7b",
+                "--model-base", "none",
+                "--frames_path", "/dataset/dcahn/llms/YuraLLM/playground/data/VideoChatGPT_Eval/Test_Videos",
+                "--gt_file", "/dataset/dcahn/llms/YuraLLM/playground/data/VideoChatGPT_Eval/original_data/temporal_qa.json",
+                "--output_dir", "results/vlm_rlaif_video_llava_7b/videochatgpt/temporal",
+                "--output_name", "debug_run",
+                "--images",
+                "--num_frames", "50",
+                "--rlhf_ckpt",
+                "--debug"
+            ],
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}:${env:PYTHONPATH}",
+                "CUDA_VISIBLE_DEVICES": "0"
+            },
+            "console": "integratedTerminal",
+            "justMyCode": false
+        }
+    ]
+}
