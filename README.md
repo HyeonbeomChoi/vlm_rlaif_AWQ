@@ -1,6 +1,25 @@
 # vlm_rlaif_AWQ
 
-This repo contains light weighted [vlm-rlaif](https://dcahn12.github.io/projects/vlm-rlaif/).
+<!-- This repo contains light weighted [vlm-rlaif](https://dcahn12.github.io/projects/vlm-rlaif/).
+ -->
+본 문서는 [vlm-rlaif](https://dcahn12.github.io/projects/vlm-rlaif/)모델과 AWQ를 적용하여 기존 모델을 경량화하는 소스코드의 실행 방법을 포함한다.
+
+## Overview
+<!-- <img src="./fig/overview.png" height="404px" width="1122px">
+</img> -->
+![overview](fig/overview.png)
+
+
+* VLM-RLAIF 모델 아키텍쳐는 1) laguage model과 2) Vision encoer + Projection laayer로 구성되어있다. 본 연구진은 전체 모델의 약 95%에 해당하는 laguage model을 AWQ를 적용해 경량화 한다.
+
+<!-- <img src="./fig/lightweight.png" height="540px" width="629px">
+</img> -->
+
+![lightweight](fig/lightweight.png)
+
+* 경량화 전 후 모델 변경 시각화. 좌측의 경량화 전의 모델은 FP16의 precision을 가진다. 전체 모델 중 약 1%의 salient weight은 그대로 유지하고 unsalient weight을 가장 가까운 정수로 반올림 (RTN)하여 모델의 parameter를 양자화한다.
+
+
 
 ## Install
 
@@ -9,6 +28,8 @@ This repo contains light weighted [vlm-rlaif](https://dcahn12.github.io/projects
 docker pull hyeonbeomchoi/vlm_rlaif_awq
 docker run --gpus all -it -v /PATH/TO/CODE:/PATH/TO/CODE --name=CONTAINER_NAME hyeonbeomchoi/vlm_rlaif_awq bash
 ```
+
+## Usage
 
 1. Prepare Original Weights and VCG-bench for vlm_rlaif_video_llava_7b
 ```
@@ -35,9 +56,9 @@ python -m awq.entry --model_path ../vlm-rlaif/SNUMPR/vlm_rlaif_video_llava_7b --
 cd ../vlm-rlaif
 bash Evaluation/scripts/videochatgpt_pipeline.sh true
 ```
-Run the script 3 times with TASKNAMES set to (generic), (temporal), and (consistency). \
-Update the following variables in the shell script if necessary: AWQ_PATH, MODEL_PATH, OUTPUT_DIR, API_KEY, DATA_DIR and FRAMES_PATH in shell script \
-Modify Evaluation/videochatgpt/infer_general.py or infer_consistency.py to specify the GPU number for inference.
+Run the script 3 times with `TASKNAMES` set to (generic), (temporal), and (consistency). \
+Update the following variables in the shell script if necessary: `AWQ_PATH`, `MODEL_PATH`, `OUTPUT_DIR`, `API_KEY`, `DATA_DIR` and `FRAMES_PATH` in shell script \
+Modify `Evaluation/videochatgpt/infer_general.py` or `infer_consistency.py` to specify the GPU number for inference.
 
 5. Evaluate Model Predictions with GPT-3.5-Turbo
 ```
